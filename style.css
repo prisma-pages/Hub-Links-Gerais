@@ -1,0 +1,620 @@
+/* ==========================================================================
+   VARIÁVEIS E CONFIGURAÇÕES GERAIS (ESTILO DJI DARK & BENTO DARK UI)
+   ========================================================================== */
+:root {
+  --bg-page: #0d0f12;
+  --bg-card: #141d2b;
+  --bg-card-hover: #192536;
+  --border-card: rgba(255, 255, 255, 0.06);
+  --border-card-hover: rgba(255, 255, 255, 0.14);
+  --shadow-card: 0 15px 35px rgba(0, 0, 0, 0.45);
+  --shadow-card-hover: 0 22px 45px rgba(0, 0, 0, 0.65);
+
+  --text-muted: #8a94a6;
+  --text-white: #ffffff;
+  --text-soft: #cbd5e1;
+
+  /* Gradientes Vibrantes para os Ícones 44x44px */
+  --grad-orange: linear-gradient(135deg, #ff7e47 0%, #ff3b5c 100%);
+  --grad-purple: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  --grad-cyan: linear-gradient(135deg, #00d2ff 0%, #2563eb 100%);
+
+  /* Brilho Sutil dos Ícones */
+  --glow-orange: 0 8px 20px -4px rgba(255, 94, 77, 0.45);
+  --glow-purple: 0 8px 20px -4px rgba(192, 68, 224, 0.45);
+  --glow-cyan: 0 8px 20px -4px rgba(0, 180, 255, 0.45);
+
+  /* Linhas Horizontais Neon (2px) na Base do Card */
+  --line-orange: linear-gradient(90deg, transparent 0%, #ff7e47 30%, #ff3b5c 70%, transparent 100%);
+  --line-purple: linear-gradient(90deg, transparent 0%, #a855f7 30%, #ec4899 70%, transparent 100%);
+  --line-cyan: linear-gradient(90deg, transparent 0%, #00d2ff 30%, #3b82f6 70%, transparent 100%);
+
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Montserrat', 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  color: var(--text-white);
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  padding-bottom: 64px; /* Espaço para o rodapé fixo */
+}
+
+/* Luz ambiental ultra-discreta no fundo */
+.ambient-glow {
+  position: fixed;
+  top: -220px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 780px;
+  height: 420px;
+  background: radial-gradient(ellipse at center, rgba(28, 52, 88, 0.22) 0%, rgba(13, 15, 18, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==========================================================================
+   CABEÇALHO (TOPO) - MENU HORIZONTAL CENTRALIZADO DJI DARK
+   ========================================================================== */
+.top-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background: rgba(13, 15, 18, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 0 24px;
+}
+
+.nav-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 76px;
+  flex-wrap: wrap;
+}
+
+.nav-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 6px;
+}
+
+.nav-btn {
+  position: relative;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 20px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease;
+  user-select: none;
+}
+
+.nav-home-icon {
+  width: 15px;
+  height: 15px;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Indicador luminoso discreto abaixo do item selecionado ou em hover */
+.nav-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 26px;
+  height: 2px;
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.85), 0 0 20px rgba(56, 189, 248, 0.55);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.32s ease;
+  opacity: 0;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+  color: var(--text-white);
+}
+
+.nav-btn:hover::after,
+.nav-btn.active::after {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 1;
+}
+
+.nav-btn:hover .nav-home-icon,
+.nav-btn.active .nav-home-icon {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   ESTRUTURA CENTRAL E TRANSIÇÃO ENTRE SEÇÕES
+   ========================================================================== */
+.main-wrapper {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 56px 28px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.view-section {
+  display: none;
+  opacity: 0;
+  transform: translateY(0);
+}
+
+.view-section.active-view {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   DESIGN DOS CARDS (ESTILO BENTO DARK UI)
+   ========================================================================== */
+.bento-card {
+  position: relative;
+  background-color: var(--bg-card);
+  border-radius: 18px;
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-card);
+  padding: 28px 28px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.32s ease,
+              box-shadow 0.32s ease,
+              background-color 0.32s ease;
+}
+
+.bento-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-card-hover);
+  box-shadow: var(--shadow-card-hover);
+  background-color: var(--bg-card-hover);
+}
+
+/* Pequeno ícone quadrado arredondado (44x44px) no topo com fundo em gradiente vibrante */
+.icon-box {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.icon-box svg {
+  width: 22px;
+  height: 22px;
+  stroke: #ffffff;
+}
+
+.gradient-orange {
+  background: var(--grad-orange);
+  box-shadow: var(--glow-orange);
+}
+
+.gradient-purple {
+  background: var(--grad-purple);
+  box-shadow: var(--glow-purple);
+}
+
+.gradient-cyan {
+  background: var(--grad-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+/* Linha horizontal finíssima (2px) na parte inferior com brilho gradiente neon sutil */
+.neon-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.bento-card:hover .neon-line {
+  opacity: 1;
+  filter: brightness(1.25);
+}
+
+.line-orange {
+  background: var(--line-orange);
+  box-shadow: 0 -1px 10px rgba(255, 94, 77, 0.45);
+}
+
+.line-purple {
+  background: var(--line-purple);
+  box-shadow: 0 -1px 10px rgba(192, 68, 224, 0.45);
+}
+
+.line-cyan {
+  background: var(--line-cyan);
+  box-shadow: 0 -1px 10px rgba(0, 210, 255, 0.45);
+}
+
+/* ==========================================================================
+   TELA INICIAL (SAUDAÇÃO DINÂMICA E OS 3 CARDS PRINCIPAIS)
+   ========================================================================== */
+.welcome-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+.welcome-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: var(--text-white);
+  line-height: 1.25;
+}
+
+.welcome-title .welcome-highlight {
+  background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 300;
+}
+
+.bento-home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  align-items: stretch;
+}
+
+.bento-home-grid .bento-card {
+  min-height: 245px;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 26px;
+}
+
+.card-tag {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+/* Card 1: Relógio Digital e Data */
+.digital-clock {
+  font-family: var(--font-display);
+  font-size: 2.55rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--text-white);
+  line-height: 1.1;
+  margin-bottom: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.full-date {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Card 2: Clima */
+.weather-main {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.weather-temp {
+  font-family: var(--font-display);
+  font-size: 2.55rem;
+  font-weight: 700;
+  color: var(--text-white);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.weather-desc {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Card 3: Frase do Dia */
+.quote-body {
+  justify-content: center;
+}
+
+.daily-quote {
+  font-size: 1.02rem;
+  font-weight: 400;
+  line-height: 1.62;
+  color: #e2e8f0;
+  font-style: italic;
+  position: relative;
+}
+
+/* ==========================================================================
+   SEÇÃO DE LINKS POR CATEGORIA (CARDS DE LINKS BENTO DARK UI)
+   ========================================================================== */
+.category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.category-title {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-white);
+}
+
+.category-count {
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.bento-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 22px;
+}
+
+/* Card de Link Individual */
+.link-card {
+  cursor: pointer;
+  min-height: 162px;
+  padding: 24px;
+  user-select: none;
+}
+
+.link-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+/* Favicon dentro do quadradinho 44x44px */
+.favicon-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  border-radius: 4px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  transition: transform 0.25s ease;
+}
+
+.link-card:hover .favicon-img {
+  transform: scale(1.08);
+}
+
+/* Botão elegante de Copiar Link */
+.copy-btn {
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  border-radius: 10px;
+  padding: 7px 11px;
+  font-family: var(--font-main);
+  font-size: 0.73rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  z-index: 2;
+}
+
+.copy-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+
+.copy-btn:hover {
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: var(--text-white);
+  transform: translateY(-1px);
+}
+
+.copy-btn.copied {
+  background: rgba(16, 185, 129, 0.16);
+  border-color: rgba(16, 185, 129, 0.45);
+  color: #34d399;
+}
+
+/* Nome do Link no Card */
+.link-name {
+  font-family: var(--font-display);
+  font-size: 1.04rem;
+  font-weight: 600;
+  color: var(--text-white);
+  line-height: 1.4;
+  letter-spacing: 0.2px;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Estado vazio ou carregando */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 56px 24px;
+  background: rgba(20, 29, 43, 0.55);
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   RODAPÉ FIXO E DISCRETO NA BASE DA PÁGINA
+   ========================================================================== */
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  background: rgba(13, 15, 18, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 40;
+}
+
+.fixed-footer p {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 1.6px;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE
+   ========================================================================== */
+@media (max-width: 960px) {
+  .bento-home-grid {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .bento-home-grid .bento-card {
+    min-height: 200px;
+  }
+}
+
+@media (max-width: 640px) {
+  .top-header {
+    padding: 8px 12px;
+  }
+
+  .nav-container {
+    gap: 4px;
+    min-height: 60px;
+  }
+
+  .nav-divider {
+    display: none;
+  }
+
+  .nav-btn {
+    padding: 10px 12px;
+    font-size: 0.7rem;
+    letter-spacing: 1.4px;
+  }
+
+  .main-wrapper {
+    padding: 32px 18px 56px;
+  }
+
+  .digital-clock,
+  .weather-temp {
+    font-size: 2.15rem;
+  }
+}
+

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hub Central — Links Gerais</title>
+  <!-- Google Fonts: Inter & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Efeito sutil de iluminação de fundo ambiental -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <!-- Cabeçalho Minimalista DJI Dark -->
+  <header class="top-header">
+    <nav class="nav-container" aria-label="Navegação Principal">
+      <button class="nav-btn active" data-tab="inicio" id="btn-inicio" title="Voltar à Tela Inicial">
+        <svg class="nav-home-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1V9.5z" />
+        </svg>
+        <span>INÍCIO</span>
+      </button>
+
+      <div class="nav-divider" aria-hidden="true"></div>
+
+      <button class="nav-btn" data-tab="Pátios">
+        <span>PÁTIOS</span>
+      </button>
+      <button class="nav-btn" data-tab="Registros">
+        <span>REGISTROS</span>
+      </button>
+      <button class="nav-btn" data-tab="Treinamentos">
+        <span>TREINAMENTOS</span>
+      </button>
+      <button class="nav-btn" data-tab="Links Gerais">
+        <span>LINKS GERAIS</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Conteúdo Principal Centralizado -->
+  <main class="main-wrapper">
+    <!-- SEÇÃO 1: TELA INICIAL (Saudação + 3 Cards Bento Dark UI) -->
+    <section id="home-section" class="view-section active-view" aria-label="Painel Inicial">
+      <div class="welcome-header">
+        <h1 class="welcome-title" id="welcome-greeting">Seja bem-vindo</h1>
+      </div>
+
+      <div class="bento-home-grid">
+        
+        <!-- Card 1: Horário e Data (Gradiente Laranja/Coral) -->
+        <article class="bento-card accent-orange">
+          <div class="card-top">
+            <div class="icon-box gradient-orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <span class="card-tag">HORÁRIO LOCAL</span>
+          </div>
+          <div class="card-body">
+            <div class="digital-clock" id="clock-time">00:00:00</div>
+            <p class="full-date" id="clock-date">Carregando data...</p>
+          </div>
+          <div class="neon-line line-orange"></div>
+        </article>
+
+        <!-- Card 2: Clima em Tempo Real (Gradiente Azul Ciano) -->
+        <article class="bento-card accent-cyan">
+          <div class="card-top">
+            <div class="icon-box gradient-cyan" id="weather-icon-box">
+              <!-- Ícone dinâmico do clima -->
+              <svg id="weather-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+              </svg>
+            </div>
+            <span class="card-tag" id="weather-location">CLIMA ATUAL</span>
+          </div>
+          <div class="card-body">
+            <div class="weather-main">
+              <span class="weather-temp" id="weather-temp">--°C</span>
+            </div>
+            <p class="weather-desc" id="weather-condition">Obtendo meteorologia...</p>
+          </div>
+          <div class="neon-line line-cyan"></div>
+        </article>
+
+        <!-- Card 3: Frase do Dia (Gradiente Roxo/Magenta) -->
+        <article class="bento-card accent-purple">
+          <div class="card-top">
+            <div class="icon-box gradient-purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
+                <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
+              </svg>
+            </div>
+            <span class="card-tag">FRASE DO DIA</span>
+          </div>
+          <div class="card-body quote-body">
+            <blockquote class="daily-quote" id="daily-quote">
+              <span class="skeleton-text">Sincronizando frase do dia...</span>
+            </blockquote>
+          </div>
+          <div class="neon-line line-purple"></div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SEÇÃO 2: ABAS DE CATEGORIAS E CARDS DE LINKS -->
+    <section id="links-section" class="view-section" aria-label="Links da Categoria">
+      <div class="category-header">
+        <h1 class="category-title" id="current-category-title">CATEGORIA</h1>
+        <span class="category-count" id="current-category-count">0 links</span>
+      </div>
+
+      <div id="links-grid" class="bento-links-grid">
+        <!-- Cards gerados dinamicamente via JavaScript -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Rodapé Fixo e Discreto -->
+  <footer class="fixed-footer">
+    <p>© 2026 - Marlon Fernandes</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
